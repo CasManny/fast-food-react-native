@@ -71,11 +71,11 @@ interface CustomButtonProps {
   isLoading?: boolean;
 }
 
-interface CustomHeaderProps {
+export interface CustomHeaderProps {
   title?: string;
 }
 
-interface CustomInputProps {
+export interface CustomInputProps {
   placeholder?: string;
   value?: string;
   onChangeText?: (text: string) => void;
@@ -84,13 +84,13 @@ interface CustomInputProps {
   keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
 }
 
-interface ProfileFieldProps {
+export interface ProfileFieldProps {
   label: string;
   value: string;
   icon: ImageSourcePropType;
 }
 
-interface CreateUserPrams {
+interface CreateUserParams {
   email: string;
   password: string;
   name: string;
@@ -101,7 +101,7 @@ interface SignInParams {
   password: string;
 }
 
-interface GetMenuParams {
+export interface GetMenuParams {
   category: string;
   query: string;
 }

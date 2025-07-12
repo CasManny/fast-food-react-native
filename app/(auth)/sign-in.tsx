@@ -1,5 +1,6 @@
 import CustomButton from "@/components/custom-button";
 import CustomInput from "@/components/custom-input";
+import { signIn } from "@/lib/appwrite";
 import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Alert, Text, View } from "react-native";
@@ -9,21 +10,23 @@ const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
 
-  const submit = () => {
-    if (!form.email || !form.password) {
+  const submit = async () => {
+    const { email, password } = form
+    if (!email || !password) {
       return Alert.alert("Error", "Enter valid details");
     }
 
     setIsSubmitting(true);
-    try {
-      // call appwrite
-      Alert.alert("Success", "user signed in successfully");
-      router.replace("/");
-    } catch (error: any) {
-      Alert.alert("Error", error.message);
-    } finally {
-      setIsSubmitting(false);
-    }
+    
+        try {
+          await signIn({ email, password });
+
+          router.replace("/");
+        } catch (error: any) {
+          Alert.alert("Error", error.message);
+        } finally {
+          setIsSubmitting(false);
+        }
   };
   return (
     <View className="gap-10 bg-white rounded-lg p-5 mt-5">
@@ -50,7 +53,7 @@ const SignIn = () => {
         <Text className="base-regular text-gray-100">
           Don't have an account?
         </Text>
-        <Link href="/sign-up" className="base-bold text-primary">
+        <Link href="/" className="base-bold text-primary">
           Sign Up
         </Link>
       </View>

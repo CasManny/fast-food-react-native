@@ -1,3 +1,4 @@
+import { CreateUserParams, GetMenuParams, SignInParams } from "@/type";
 import {
   Account,
   Avatars,
@@ -64,6 +65,8 @@ export const signIn = async ({ email, password }: SignInParams) => {
     throw new Error(e as string);
   }
 };
+
+
 
 export const getCurrentUser = async () => {
   try {

@@ -1,11 +1,13 @@
 import CustomButton from "@/components/custom-button";
 import CustomInput from "@/components/custom-input";
-import { Link } from "expo-router";
+import { createUser } from "@/lib/appwrite";
+import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Alert, Text, View } from "react-native";
 
 const SignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
 
   const submit = async () => {
@@ -18,6 +20,16 @@ const SignUp = () => {
       );
 
     setIsSubmitting(true);
+
+    try {
+      await createUser({ email, password, name });
+
+      router.replace("/");
+    } catch (error: any) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   return (
     <View className="gap-10 bg-white rounded-lg p-5 mt-5">
@@ -50,7 +62,7 @@ const SignUp = () => {
         <Text className="base-regular text-gray-100">
           Already have an account?
         </Text>
-        <Link href="/sign-in" className="base-bold text-primary">
+        <Link href="/" className="base-bold text-primary">
           Sign In
         </Link>
       </View>
