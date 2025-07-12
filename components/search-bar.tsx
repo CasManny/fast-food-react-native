@@ -16,7 +16,8 @@ export default function SearchBar() {
     if (query.trim()) {
       router.setParams({ query });
     }
-  };
+    }
+    
   return (
     <View className="search-bar">
       <TextInput
